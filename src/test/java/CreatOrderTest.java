@@ -9,14 +9,14 @@ import static requestOjects.Colors.BLACK;
 import static requestOjects.Colors.GREY;
 
 import requestOjects.Order;
-import steps.OrderCreationStep;
+import steps.OrderStep;
 
 import java.util.List;
 
 @RunWith(Parameterized.class)
 public class CreatOrderTest {
     private final List<String> color;
-    OrderCreationStep step = new OrderCreationStep();
+    OrderStep step = new OrderStep();
 
 
     public CreatOrderTest(List<String> color) {

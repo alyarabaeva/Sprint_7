@@ -57,4 +57,16 @@ public class CourierStep {
         given()
                 .delete("/api/v1/courier/" + courierId);
     }
+
+    @Step("Get list of orders for courier")
+    public Response getListOfOrdersWithCourierId(String courierId){
+        return given()
+                .get("/v1/orders?courierId=" + courierId);
+    }
+
+    @Step("Get list of orders")
+    public Response getListOfOrders(){
+        return given()
+                .get("/v1/orders?courierId=");
+    }
 }

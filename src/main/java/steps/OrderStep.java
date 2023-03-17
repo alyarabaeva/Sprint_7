@@ -2,12 +2,11 @@ package steps;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
-import requestOjects.Courier;
 import requestOjects.Order;
 
 import static io.restassured.RestAssured.given;
 
-public class OrderCreationStep {
+public class OrderStep {
     @Step("Creat new order")
     public Response creatOrder(Order order) {
         return given()
@@ -19,12 +18,18 @@ public class OrderCreationStep {
     }
 
     @Step("Accept order")
-    public Response acceptOrder(String json, String ){
+    public Response acceptOrder(String orderId, String courierId){
+        return given()
+                .put("/api/v1/orders/accept/" + orderId + "?courierId=" + courierId);
+    }
+
+    @Step("Cancel order")
+    public Response cancelOrder(String track){
+        String json = "{\"track\": \""+ track+ "\"}";
         return given()
                 .header("Content-type", "application/json; charset=utf-8")
-                .and()
                 .body(json)
-                .when()
-                .put("/api/v1/orders/accept/");
+                .put("/api/v1/orders/cancel");
     }
+
 }
