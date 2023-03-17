@@ -17,4 +17,14 @@ public class OrderCreationStep {
                 .when()
                 .post("/api/v1/orders");
     }
+
+    @Step("Accept order")
+    public Response acceptOrder(String json, String ){
+        return given()
+                .header("Content-type", "application/json; charset=utf-8")
+                .and()
+                .body(json)
+                .when()
+                .put("/api/v1/orders/accept/");
+    }
 }
