@@ -1,11 +1,12 @@
+import io.qameta.allure.internal.shadowed.jackson.core.JsonProcessingException;
 import io.restassured.RestAssured;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import requestOjects.Courier;
 import static org.hamcrest.Matchers.*;
+import static steps.URI.PROD_URI;
 
-import static org.hamcrest.Matchers.equalTo;
 import steps.CourierStep;
 
 public class CourierLoginTest {
@@ -14,7 +15,7 @@ public class CourierLoginTest {
 
     @Before
     public void setUp() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
+        RestAssured.baseURI = PROD_URI;
         step.creatCourier(courier)
                 .then()
                 .statusCode(201);
@@ -30,39 +31,39 @@ public class CourierLoginTest {
     }
 
     @Test
-    public void courierLoginIncorrectLoginTest(){
-        String json = "{\"login\": \"sasha\", \"password\": \"" + courier.getPassword() +"\"}";
+    public void courierLoginIncorrectLoginTest() throws JsonProcessingException {
+        String json = step.getJsonWithTwoParams("login", "sasha", "password", courier.getPassword());
         step.courierLoginWithJson(json)
                 .then()
                 .statusCode(404);
     }
 
     @Test
-    public void courierLoginIncorrectPasswordTest(){
-        String json = "{\"login\": \""+ courier.getLogin()+ "\", \"password\": \"1234\"}";
+    public void courierLoginIncorrectPasswordTest() throws JsonProcessingException {
+        String json = step.getJsonWithTwoParams("login", courier.getLogin(), "password", "1234");
         step.courierLoginWithJson(json)
                 .then()
                 .statusCode(404);
     }
     @Test
-    public void courierLoginWithoutPasswordTest(){
-        String json = "{\"login\": \""+ courier.getLogin()+ "\"}";
+    public void courierLoginWithoutPasswordTest() throws JsonProcessingException {
+        String json = step.getJsonWithOneParam("login", courier.getLogin());
         step.courierLoginWithJson(json)
                 .then()
                 .statusCode(504);
     }
 
     @Test
-    public void courierLoginWithoutLoginTest(){
-        String json = "{\"password\": \""+ courier.getPassword()+ "\"}";
+    public void courierLoginWithoutLoginTest() throws JsonProcessingException {
+        String json = step.getJsonWithOneParam("password", courier.getPassword());
         step.courierLoginWithJson(json)
                 .then()
                 .statusCode(400);
     }
 
     @Test
-    public void courierLoginWithUnrealCourierTest(){
-        String json = "{\"login\": \"unrealCourier\", \"password\": \"Test\"}";
+    public void courierLoginWithUnrealCourierTest() throws JsonProcessingException {
+        String json = step.getJsonWithTwoParams("login", "unrealCourier", "password", "Test");
         step.courierLoginWithJson(json)
                 .then()
                 .statusCode(404);

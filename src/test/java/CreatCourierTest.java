@@ -1,3 +1,4 @@
+import io.qameta.allure.internal.shadowed.jackson.core.JsonProcessingException;
 import requestOjects.Courier;
 import io.restassured.RestAssured;
 import org.junit.After;
@@ -5,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.*;
+import static steps.URI.PROD_URI;
 
 import steps.CourierStep;
 
@@ -14,7 +16,7 @@ public class CreatCourierTest {
 
     @Before
     public void setUp() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
+        RestAssured.baseURI = PROD_URI;
     }
 
     @Test
@@ -49,16 +51,16 @@ public class CreatCourierTest {
     }
 
     @Test
-    public void createCourierWithoutLoginTest() {
-        String json = "{\"password\": \"12345\", \"firstName\": \"Test\"}";
+    public void createCourierWithoutLoginTest() throws JsonProcessingException {
+        String json = step.getJsonWithTwoParams("password", "12345", "firstName", "Test");
         step.creatCourierWithJson(json)
                 .then()
                 .statusCode(400);
     }
 
     @Test
-    public void createCourierWithoutPasswordTest() {
-        String json = "{\"login\": \"courierSasha\", \"firstName\": \"Test\"}";
+    public void createCourierWithoutPasswordTest() throws JsonProcessingException {
+        String json = step.getJsonWithTwoParams("login", "courierSasha", "firstName", "Test");
         step.creatCourierWithJson(json)
                 .then()
                 .statusCode(400);

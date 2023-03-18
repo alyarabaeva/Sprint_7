@@ -11,6 +11,7 @@ import steps.OrderStep;
 import java.util.List;
 
 import static org.hamcrest.Matchers.notNullValue;
+import static steps.URI.PROD_URI;
 
 public class ListOfOrdersTest {
     CourierStep courierStep = new CourierStep();
@@ -20,7 +21,7 @@ public class ListOfOrdersTest {
 
     @Before
     public void setUp() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
+        RestAssured.baseURI = PROD_URI;
         courierStep.creatCourier(courier)
                 .then()
                 .statusCode(201);

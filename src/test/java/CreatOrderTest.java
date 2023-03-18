@@ -7,6 +7,7 @@ import org.junit.runners.Parameterized;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static requestOjects.Colors.BLACK;
 import static requestOjects.Colors.GREY;
+import static steps.URI.PROD_URI;
 
 import requestOjects.Order;
 import steps.OrderStep;
@@ -25,7 +26,7 @@ public class CreatOrderTest {
 
     @Before
     public void setUp() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
+        RestAssured.baseURI = PROD_URI;
     }
 
     @Parameterized.Parameters

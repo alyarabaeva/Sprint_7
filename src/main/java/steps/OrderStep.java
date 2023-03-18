@@ -20,7 +20,8 @@ public class OrderStep {
     @Step("Accept order")
     public Response acceptOrder(String orderId, String courierId){
         return given()
-                .put("/api/v1/orders/accept/" + orderId + "?courierId=" + courierId);
+                .queryParam("courierId", courierId)
+                .put("/api/v1/orders/accept/" + orderId);
     }
 
     @Step("Cancel order")
