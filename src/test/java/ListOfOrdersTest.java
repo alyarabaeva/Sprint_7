@@ -1,4 +1,3 @@
-import io.restassured.RestAssured;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +10,7 @@ import steps.OrderStep;
 import java.util.List;
 
 import static org.hamcrest.Matchers.notNullValue;
-import static steps.URI.PROD_URI;
+import static steps.URI.setUpURI;
 
 public class ListOfOrdersTest {
     CourierStep courierStep = new CourierStep();
@@ -21,7 +20,7 @@ public class ListOfOrdersTest {
 
     @Before
     public void setUp() {
-        RestAssured.baseURI = PROD_URI;
+        setUpURI();
         courierStep.creatCourier(courier)
                 .then()
                 .statusCode(201);

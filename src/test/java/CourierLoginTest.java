@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import requestOjects.Courier;
 import static org.hamcrest.Matchers.*;
-import static steps.URI.PROD_URI;
+import static steps.URI.setUpURI;
 
 import steps.CourierStep;
 
@@ -15,7 +15,7 @@ public class CourierLoginTest {
 
     @Before
     public void setUp() {
-        RestAssured.baseURI = PROD_URI;
+        setUpURI();
         step.creatCourier(courier)
                 .then()
                 .statusCode(201);

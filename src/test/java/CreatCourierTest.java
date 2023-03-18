@@ -1,12 +1,11 @@
 import io.qameta.allure.internal.shadowed.jackson.core.JsonProcessingException;
 import requestOjects.Courier;
-import io.restassured.RestAssured;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.*;
-import static steps.URI.PROD_URI;
+import static steps.URI.setUpURI;
 
 import steps.CourierStep;
 
@@ -16,7 +15,7 @@ public class CreatCourierTest {
 
     @Before
     public void setUp() {
-        RestAssured.baseURI = PROD_URI;
+        setUpURI();
     }
 
     @Test
